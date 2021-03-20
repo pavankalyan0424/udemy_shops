@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:udemy_shops/pages/orders_screen.dart';
 import 'package:udemy_shops/providers/orders.dart';
 
-import './pages/cartScreen.dart';
+import './pages/cart_screen.dart';
 import './pages/product_detail.dart';
 import './pages/products_overview.dart';
 import './providers/cart.dart';
