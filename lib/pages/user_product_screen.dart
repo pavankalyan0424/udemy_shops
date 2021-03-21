@@ -4,6 +4,8 @@ import 'package:udemy_shops/providers/products.dart';
 import 'package:udemy_shops/widgets/app_drawer.dart';
 import 'package:udemy_shops/widgets/user_product_item.dart';
 
+import 'edit_product_screen.dart';
+
 class UserProductScreen extends StatelessWidget {
   static const String routeName = '/user_product';
 
@@ -18,7 +20,8 @@ class UserProductScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed(EditProductScreen.routeName),
           ),
         ],
       ),
@@ -27,6 +30,7 @@ class UserProductScreen extends StatelessWidget {
         itemBuilder: (context, index) => UserProductItem(
           title: productsData.items[index].title,
           imageUrl: productsData.items[index].imageUrl,
+          id: productsData.items[index].id,
         ),
         itemCount: productsData.items.length,
       ),
