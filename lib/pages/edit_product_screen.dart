@@ -74,6 +74,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
           )
         ],
       ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).primaryColor,
+        isExtended: true,
+        label: Text('Save'),
+        onPressed: () => _safeForm(),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -187,6 +195,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     child: TextFormField(
                       onEditingComplete: () {
                         setState(() {});
+                        FocusScope.of(context).unfocus();
+                      },
+                      onFieldSubmitted: (value) {
+                        setState(() {});
+                        FocusScope.of(context).unfocus();
                       },
                       validator: (value) {
                         if (value.isEmpty) return 'Please provide a value.';
@@ -195,7 +208,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           return 'Please Enter a valid imageUrl';
                         return null;
                       },
-                      onFieldSubmitted: (value) => _safeForm(),
                       onSaved: (value) {
                         _editedProduct = Product(
                             isFavorite: _editedProduct.isFavorite,
