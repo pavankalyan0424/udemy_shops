@@ -27,18 +27,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
     'imageUrl': '',
   };
 
-  void _safeForm() {
+  Future<void> _safeForm() async {
     final isValid = _form.currentState.validate();
     if (!isValid) return null;
     _form.currentState.save();
     setState(() {
       _isLoading = true;
     });
-    if (_editedProduct.id == null)
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .catchError((e) {
-        return showDialog<Null>(
+    if (_editedProduct.id == null) {
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (e) {
+        await showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: Text(
@@ -57,13 +58,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ],
           ),
         );
-      }).then((_) {
+      } finally {
         setState(() {
           _isLoading = false;
         });
         Navigator.of(context).pop();
-      });
-    else {
+      }
+    } else {
       Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
       setState(() {
